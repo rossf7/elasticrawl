@@ -25,6 +25,7 @@ Elasticrawl is a command line tool that automates launching Elastic MapReduce
 jobs against this data.
 
 [![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
+[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 1.9.3, 2.0.0, 2.1.0
 
 ## Installation
 
