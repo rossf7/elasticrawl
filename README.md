@@ -7,7 +7,7 @@ Ships with a default configuration that launches the
 [elasticrawl-examples](https://github.com/rossf7/elasticrawl-examples) jobs.
 This is an implementation of the standard Hadoop Word Count example.
 
-## Common Crawl
+## Overview
 
 Common Crawl have released 2 web crawls of 2013 data. Further crawls will be released
 during 2014. Each crawl is split into multiple segments that contain 3 file types.
@@ -17,7 +17,7 @@ during 2014. Each crawl is split into multiple segments that contain 3 file type
 * WET - WARC encoded text extractions of the HTTP responses
 
 | Crawl Name     | Date     | Segments | Pages         | Size (uncompressed) |
-| -------------- | -------- | -------- | ------------- | ------------------- |
+| -------------- |:--------:|:--------:|:-------------:|:-------------------:|
 | CC-MAIN-2013-48| Nov 2013 | 517      | ~ 2.3 billion | 148 TB              |
 | CC-MAIN-2013-20| May 2013 | 316      | ~ 2.0 billion | 102 TB              |
 
@@ -59,7 +59,7 @@ to use elasticrawl. The total cost of the 2 EMR jobs will be under $1 USD.
 
 You'll need to choose an S3 bucket name and enter your AWS access key and
 secret key. The S3 bucket will be used for storing data and logs. S3 bucket
-names must be unique.
+names must be unique, using hyphens rather than underscores is recommended.
 
 ```bash
 ~$ elasticrawl init your-s3-bucket
@@ -148,14 +148,14 @@ Config deleted
 The elasticrawl init command creates the ~/elasticrawl/ directory which
 contains
 
-* [aws.yml](https://github.com/rossf7/elasticrawl/templates/aws.yml) -
+* [aws.yml](https://github.com/rossf7/elasticrawl/blob/master/templates/aws.yml) -
 stores your AWS access credentials. Or you can set the environment
 variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 
-* [cluster.yml](https://github.com/rossf7/elasticrawl/templates/cluster.yml) -
+* [cluster.yml](https://github.com/rossf7/elasticrawl/blob/master/templates/cluster.yml) -
 configures the EC2 instances that are launched to form your EMR cluster
 
-* [jobs.yml](https://github.com/rossf7/elasticrawl/templates/jobs.yml) -
+* [jobs.yml](https://github.com/rossf7/elasticrawl/blob/master/templates/jobs.yml) -
 stores your S3 bucket name and the config for the parse and combine jobs
 
 ## Managing Segments
