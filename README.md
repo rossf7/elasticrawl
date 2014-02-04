@@ -24,6 +24,8 @@ during 2014. Each crawl is split into multiple segments that contain 3 file type
 Elasticrawl is a command line tool that automates launching Elastic MapReduce
 jobs against this data.
 
+[![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
+
 ## Installation
 
 ### Dependencies
