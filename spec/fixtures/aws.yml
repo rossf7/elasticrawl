@@ -1,0 +1,4 @@
+# Configures the AWS credentials used when accessing the AWS EMR and S3 APIs.
+# This file is populated by the elasticrawl init command.
+access_key_id: 'ACCESS_KEY_ID'
+secret_access_key: 'SECRET_ACCESS_KEY'

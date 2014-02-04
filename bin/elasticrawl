@@ -1,0 +1,141 @@
+#!/usr/bin/env ruby
+require 'elasticrawl'
+
+module Elasticrawl
+  class Cli < Thor
+    desc 'init S3_BUCKET_NAME', 'Creates S3 bucket and config directory'
+    method_option :access_key_id, :type => :string, :desc => 'AWS Access Key ID'
+    method_option :secret_access_key, :type => :string, :desc => 'AWS Secret Access Key'
+    def init(s3_bucket_name)
+      key = options[:access_key_id]
+      secret = options[:secret_access_key]
+
+      if key.nil? || secret.nil?
+        config = Config.new
+
+        # Prompt for credentials showing the current values.
+        key = ask(config.access_key_prompt)
+        secret = ask(config.secret_key_prompt)
+
+        # Use current values if user has selected them.
+        key = config.access_key_id if key.blank?
+        secret = config.secret_access_key if secret.blank?
+      end
+
+      # Create new config object with updated credentials.
+      config = Config.new(key, secret)
+
+      if config.bucket_exists?(s3_bucket_name)
+        puts('ERROR: S3 bucket already exists')
+      else
+        if config.dir_exists?
+          puts("WARNING: Config dir #{config.config_dir} already exists")
+          overwrite = agree('Overwrite? (y/n)', true)
+        end
+
+        puts(config.create(s3_bucket_name)) if !config.dir_exists? || overwrite == true
+      end
+    end
+
+    desc 'parse CRAWL_NAME', 'Launches parse job against Common Crawl corpus'
+    method_option :max_segments, :type => :numeric, :desc => 'number of crawl segments to parse'
+    method_option :max_files, :type => :numeric, :desc => 'number of files to parse per segment'
+    method_option :segment_list, :type => :array, :desc => 'list of segment names to parse'
+    def parse(crawl_name)
+      load_database
+
+      crawl = find_crawl(crawl_name)
+      if crawl.has_segments?
+        segment_list = options[:segment_list]
+
+        if segment_list.present?
+          segments = crawl.select_segments(segment_list)
+        else
+          segments = crawl.next_segments(options[:max_segments])
+        end
+
+        if segments.count == 0
+          puts('ERROR: No segments matched for parsing')
+        else
+          job = ParseJob.new
+          job.set_segments(segments, options[:max_files])
+          puts(job.confirm_message)
+
+          launch = agree('Launch job? (y/n)', true)
+          puts(job.run) if launch == true
+        end
+      else
+        puts('ERROR: Crawl does not exist')
+      end
+    end
+
+    desc 'combine', 'Launches combine job against parse job results'
+    method_option :input_jobs, :type => :array, :required => true,
+      :desc => 'list of input jobs to combine'
+    def combine
+      load_database
+
+      job = CombineJob.new
+      job.set_input_jobs(options[:input_jobs])
+      puts(job.confirm_message)
+
+      launch = agree('Launch job? (y/n)', true)
+      puts(job.run) if launch == true
+    end
+
+    desc 'status', 'Shows crawl status and lists jobs'
+    method_option :show_all, :type => :boolean, :desc => 'list all jobs'
+    def status
+      load_database
+      puts(Crawl.status(options[:show_all]))
+    end
+
+    desc 'reset CRAWL_NAME', 'Resets a crawl so its segments are parsed again'
+    def reset(crawl_name)
+      load_database
+
+      crawl = find_crawl(crawl_name)
+      if crawl.has_segments?
+        reset = agree('Reset crawl? (y/n)', true)
+        puts(crawl.reset) if reset == true
+      else
+        puts('ERROR: Crawl does not exist')
+      end
+    end
+
+    desc 'destroy', 'Deletes S3 bucket and config directory'
+    def destroy
+      config = Config.new
+
+      if config.dir_exists?
+        puts(config.delete_warning)
+        delete = agree('Delete? (y/n)', true)
+        puts(config.delete) if delete == true
+      else
+        puts('No config dir. Nothing to do')
+      end
+    end
+
+  private
+    # Find a crawl record in the database.
+    def find_crawl(crawl_name)
+      Crawl.where(:crawl_name => crawl_name).first_or_initialize
+    end
+
+    # Load sqlite database.
+    def load_database
+      config = Config.new
+      config.load_database
+    end
+  end
+end
+
+begin
+  Elasticrawl::Cli.start(ARGV)
+# Show errors parsing command line arguments.
+rescue Thor::Error => e
+  puts(e.message)
+# Show elasticrawl errors.
+rescue Elasticrawl::Error => e
+  puts("ERROR: #{e.message}")
+end

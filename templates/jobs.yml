@@ -1,0 +1,31 @@
+# Configures the AWS Elastic MapReduce jobs launched against the Common Crawl
+# corpus. 
+
+# An S3 bucket is created by the init command and is used to store data and logs.
+s3_bucket_name: 'BUCKET_NAME'
+
+# A parse step is created per Common Crawl segment.  A combine step takes the
+# results from multiple segments to create a single set of output files.
+
+# The parse input filter is used to specify the Common Crawl file type.
+
+# WARC: 'warc/*.warc.gz' - Full HTTP requests and responses.
+# WAT: 'wat/*.warc.wat.gz' - Metadata extractions from WARC files.
+# WET: 'wet/*.warc.wet.gz' - Text extractions from WARC files.
+
+# The EMR config is an XML file that sets Hadoop properties.  If a config file
+# is specified then a bootstrap action is run on each node to apply it.
+steps:
+  # Parse step for the Example Elasticrawl JAR.  This does a word count
+  # against the text extractions of the corpus.
+  parse:
+    jar: 's3://elasticrawl/jar/elasticrawl-examples-1.0.0.jar'
+    class: 'com.rossfairbanks.elasticrawl.examples.WordCount'
+    input_filter: 'wet/*.warc.wet.gz'
+    emr_config: #'s3://elasticrawl/jar/parse-mapred-site.xml'
+  # Combine step for the Example Elasticrawl JAR.
+  combine:
+    jar: 's3://elasticrawl/jar/elasticrawl-examples-1.0.0.jar'
+    class: 'com.rossfairbanks.elasticrawl.examples.SegmentCombiner'
+    input_filter: 'part-*'
+    emr_config: #'s3://elasticrawl/jar/combine-mapred-site.xml'

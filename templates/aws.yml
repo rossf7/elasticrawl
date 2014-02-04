@@ -1,0 +1,7 @@
+# Configures the AWS access credentials used when calling the AWS 
+# Elastic MapReduce and S3 APIs.  This file is populated by the init command.
+# 
+# Instead of configuring this file you can set the environment variables
+# AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY.
+access_key_id: 'ACCESS_KEY_ID'
+secret_access_key: 'SECRET_ACCESS_KEY'

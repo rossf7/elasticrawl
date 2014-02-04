@@ -1,0 +1,44 @@
+# Configures the Elastic MapReduce cluster that is launched to run parse and
+# combine jobs. The list of EC2 instance types can be found at
+# http://aws.amazon.com/ec2/instance-types/#instance-details
+
+# Using spot instances is recommended to reduce costs. However if the spot
+# price rises above your bid price the cluster may be terminated. Elasticrawl
+# tries to reduce the effect of this by parsing each Commmon Crawl segment
+# in a separate job flow step.
+
+# The master node manages the cluster.
+master_instance_group:
+  instance_type: m1.medium
+  use_spot_instances: true
+  bid_price: 0.120
+
+# Core nodes run map and reduce tasks and store data using HDFS.
+core_instance_group:
+  instance_type: m1.medium
+  instance_count: 2
+  use_spot_instances: true
+  bid_price: 0.120
+
+# Task nodes are optional and only run map and reduce tasks.
+task_instance_group:
+  instance_type: m1.small
+  instance_count: 0
+  use_spot_instances: true
+  bid_price: 0.080
+
+# Array of bootstrap scripts that will be applied when the cluster nodes are
+# initialized. The example installs the Ganglia distributed monitoring system.
+bootstrap_scripts: #['s3://elasticmapreduce/bootstrap-actions/install-ganglia']
+
+# Specifying an EC2 key pair allows SSH access to the master node. This also
+# allows accessing the Hadoop Web UI over an SSH tunnel.
+ec2_key_name: # 'key-pair-name'
+
+# Availability Zone (AZ) to launch instances in. An AZ in the US-East region is
+# recommended since the Common Crawl corpus is stored there. Otherwise inter
+# region data transfer charges will apply.
+placement: 'us-east-1a'
+
+# The AMI version to use when launching instances.
+emr_ami_version: 'latest'
