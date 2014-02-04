@@ -24,9 +24,6 @@ during 2014. Each crawl is split into multiple segments that contain 3 file type
 Elasticrawl is a command line tool that automates launching Elastic MapReduce
 jobs against this data.
 
-[![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
-[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 1.9.3, 2.0.0, 2.1.0
-
 ## Installation
 
 ### Dependencies
@@ -35,7 +32,24 @@ Elasticrawl is developed in Ruby and requires Ruby 1.9.3 or later.
 Installing using [rbenv](https://github.com/sstephenson/rbenv#installation)
 and the ruby-build plugin is recommended.
 
+A SQLite database is used to store details of crawls and jobs. Installing the sqlite3
+gem requires the development headers to be installed.
+
+```bash
+
+sudo yum install sqlite-devel
+
+# OR
+
+sudo apt-get install libsqlite3-dev
+
+```
+
 ### Install elasticrawl
+
+[![Gem Version](https://badge.fury.io/rb/elasticrawl.png)](http://badge.fury.io/rb/elasticrawl)
+[![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
+[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 1.9.3, 2.0.0, 2.1.0
 
 ```bash
 ~$ gem install elasticrawl --no-rdoc --no-ri
