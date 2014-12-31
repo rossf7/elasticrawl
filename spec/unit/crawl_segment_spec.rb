@@ -6,6 +6,7 @@ describe Elasticrawl::CrawlSegment do
   it { should have_db_column(:segment_name).of_type(:string) }
   it { should have_db_column(:segment_s3_uri).of_type(:string) }
   it { should have_db_column(:parse_time).of_type(:datetime) }
+  it { should have_db_column(:file_count).of_type(:integer) }
 
   describe '#initialize' do
     let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
