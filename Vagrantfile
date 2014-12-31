@@ -36,16 +36,16 @@ Vagrant.configure("2") do |config|
           "user_installs" => [
             {
               "user" => "vagrant",
-              "rubies" => ["1.9.3-p545", "2.0.0-p451", "2.1.1"],
-              "global" => "1.9.3-p545",
+              "rubies" => ["1.9.3-p551", "2.0.0-p598", "2.1.5"],
+              "global" => "2.1.5",
               "gems" => {
-                "1.9.3-p545" => [
+                "1.9.3-p551" => [
                   { "name" => "bundler" }
                 ],
-                "2.0.0-p451" => [
+                "2.0.0-p598" => [
                   { "name" => "bundler" }
                 ],
-                "2.1.1" => [
+                "2.1.5" => [
                   { "name" => "bundler" }
                 ]
               }
