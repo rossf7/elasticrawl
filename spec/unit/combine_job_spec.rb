@@ -71,7 +71,7 @@ describe Elasticrawl::CombineJob do
     end
 
     it 'should set a job flow id' do
-      Elasticity::JobFlow.any_instance.stubs(:run).returns(job_flow_id)
+      allow_any_instance_of(Elasticity::JobFlow).to receive(:run).and_return(job_flow_id)
       combine_job.run
 
       expect(combine_job.job_flow_id).to eq job_flow_id

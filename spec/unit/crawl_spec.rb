@@ -96,7 +96,7 @@ describe Elasticrawl::Crawl do
       crawl.create_segments
       job.set_segments(crawl.crawl_segments[0..1])
 
-      Elasticity::JobFlow.any_instance.stubs(:run).returns(job_flow_id)
+      allow_any_instance_of(Elasticity::JobFlow).to receive(:run).and_return(job_flow_id)
       job.run
 
       crawl.reset
@@ -119,7 +119,7 @@ describe Elasticrawl::Crawl do
       crawl.create_segments
       job.set_segments(crawl.crawl_segments[0..1], max_files)
 
-      Elasticity::JobFlow.any_instance.stubs(:run).returns(job_flow_id)
+      allow_any_instance_of(Elasticity::JobFlow).to receive(:run).and_return(job_flow_id)
       job.run
     end
 
