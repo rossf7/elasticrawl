@@ -43,7 +43,7 @@ module Elasticrawl
 
     # Return list of segment descriptions.
     def segment_list
-      segments = []
+      segments = ['Segments']
 
       job_steps.each do |job_step|
         if job_step.crawl_segment.present?
@@ -52,7 +52,7 @@ module Elasticrawl
         end
       end
 
-      segments
+      segments.push('')
     end
 
   private
