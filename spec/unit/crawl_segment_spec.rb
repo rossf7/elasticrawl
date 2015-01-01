@@ -12,6 +12,7 @@ describe Elasticrawl::CrawlSegment do
     let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:segment_name) { '1416400372202.67' }
     let(:file_count) { 3 }
+    let(:segment_desc) { 'Segment: 1416400372202.67 Files: 3' }
     subject { Elasticrawl::CrawlSegment.create_segment(crawl,
                                                        segment_name,
                                                        file_count) }
@@ -26,6 +27,10 @@ describe Elasticrawl::CrawlSegment do
 
     it 'should have a file count' do
       expect(subject.file_count).to eq file_count
+    end
+
+    it 'should have a segment description' do
+      expect(subject.segment_desc).to eq segment_desc
     end
   end
 end

@@ -5,6 +5,11 @@ module Elasticrawl
     belongs_to :crawl
     has_many :job_steps
 
+    # Description shows name and number of files in the segment.
+    def segment_desc
+      "Segment: #{segment_name} Files: #{file_count}"
+    end
+
     # Creates a crawl segment based on its S3 path if it does not exist.
     def self.create_segment(crawl, segment_name, file_count)
       s3_uri = build_s3_uri(crawl.crawl_name, segment_name)
