@@ -8,13 +8,9 @@ RSpec.configure do |config|
   DatabaseCleaner.strategy = :transaction
 
   config.before(:each) do
-    # Return S3 paths that are used to create a crawl object with 3 crawl segments.
-    segment_paths = []
-    segment_paths[0] = 'common-crawl/crawl-data/CC-MAIN-2013-20/segments/1368696381249/'
-    segment_paths[1] = 'common-crawl/crawl-data/CC-MAIN-2013-20/segments/1368696381630/'
-    segment_paths[2] = 'common-crawl/crawl-data/CC-MAIN-2013-20/segments/1368696382185/'
-
-    allow_any_instance_of(Elasticrawl::Crawl).to receive(:s3_segment_paths).and_return(segment_paths)
+    # Stub S3 call to get WARC file paths
+    warc_paths = IO.read(File.join(File.dirname(__FILE__), 'fixtures', 'warc.paths'))
+    allow_any_instance_of(Elasticrawl::Crawl).to receive(:warc_paths).and_return(warc_paths)
 
     # Load config from spec/fixtures/ rather than ~/.elasticrawl/
     config_dir = File.join(File.dirname(__FILE__), 'fixtures')
