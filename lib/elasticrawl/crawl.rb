@@ -49,7 +49,9 @@ module Elasticrawl
     # Creates crawl segments from the warc.paths file for this crawl.
     def create_segments
       file_paths = warc_paths(self.crawl_name)
+
       segments = parse_segments(file_paths)
+      save if segments.count > 0
 
       segments.keys.each do |segment_name|
         file_count = segments[segment_name]
