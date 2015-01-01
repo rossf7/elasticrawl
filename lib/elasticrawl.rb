@@ -8,8 +8,9 @@ require 'thor'
 module Elasticrawl
   # S3 locations
   COMMON_CRAWL_BUCKET = 'aws-publicdatasets'
-  COMMON_CRAWL_PATH = '/common-crawl/crawl-data'
+  COMMON_CRAWL_PATH = 'common-crawl/crawl-data'
   SEGMENTS_PATH = 'segments'
+  WARC_PATHS = 'warc.paths.gz'
   MAX_SEGMENTS = 256
 
   require 'elasticrawl/version'

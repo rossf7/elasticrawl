@@ -5,7 +5,7 @@ describe Elasticrawl::Crawl do
   it { should have_db_column(:crawl_name).of_type(:string) }
 
   describe '#has_segments?' do
-    let(:crawl_name) { 'CC-MAIN-2013-20' }
+    let(:crawl_name) { 'CC-MAIN-2014-49' }
     subject { Elasticrawl::Crawl.new(:crawl_name => crawl_name) }
 
     it 'should have segments' do
@@ -14,7 +14,7 @@ describe Elasticrawl::Crawl do
   end
 
   describe '#create_segments' do
-    let(:crawl_name) { 'CC-MAIN-2013-20' }
+    let(:crawl_name) { 'CC-MAIN-2014-49' }
     subject { Elasticrawl::Crawl.create(:crawl_name => crawl_name) }
 
     before do
@@ -30,17 +30,21 @@ describe Elasticrawl::Crawl do
     end
 
     it 'should create segment names' do
-      expect(subject.crawl_segments[0].segment_name).to eq '1368696381249'
+      expect(subject.crawl_segments[0].segment_name).to eq '1416400372202.67'
     end
 
     it 'should create segment s3 uris' do
       expect(subject.crawl_segments[0].segment_s3_uri).to eq \
-        's3://aws-publicdatasets/common-crawl/crawl-data/CC-MAIN-2013-20/segments/1368696381249/'
+        's3://aws-publicdatasets/common-crawl/crawl-data/CC-MAIN-2014-49/segments/1416400372202.67/'
+    end
+
+    it 'should set file counts' do
+      expect(subject.crawl_segments[0].file_count).to eq 3
     end
   end
 
   describe '#next_segments' do
-    let(:crawl_name) { 'CC-MAIN-2013-20' }
+    let(:crawl_name) { 'CC-MAIN-2014-49' }
     subject { Elasticrawl::Crawl.create(:crawl_name => crawl_name) }
 
     before do
@@ -52,7 +56,7 @@ describe Elasticrawl::Crawl do
 
       expect(crawl_segments.count).to eq 3
       expect(crawl_segments[0].crawl.crawl_name).to eq crawl_name
-      expect(crawl_segments[0].segment_name).to eq '1368696381249'
+      expect(crawl_segments[0].segment_name).to eq '1416400372202.67'
     end
 
     it 'should return first # segments' do
@@ -60,12 +64,12 @@ describe Elasticrawl::Crawl do
 
       expect(crawl_segments.count).to eq 2
       expect(crawl_segments[0].crawl.crawl_name).to eq crawl_name
-      expect(crawl_segments[0].segment_name).to eq '1368696381249'
+      expect(crawl_segments[0].segment_name).to eq '1416400372202.67'
     end
   end
 
   describe '#select_segments' do
-    let(:crawl_name) { 'CC-MAIN-2013-20' }
+    let(:crawl_name) { 'CC-MAIN-2014-49' }
     subject { Elasticrawl::Crawl.create(:crawl_name => crawl_name) }
 
     before do
@@ -80,7 +84,7 @@ describe Elasticrawl::Crawl do
     end
 
     it 'should select only segments in list' do
-      segments_list = ['1368696381249', '1368696382185']
+      segments_list = ['1416400372202.67', '1416400372490.23']
       crawl_segments = subject.select_segments(segments_list)
 
       expect(crawl_segments.count).to eq 2
@@ -88,7 +92,7 @@ describe Elasticrawl::Crawl do
   end
 
   describe '#reset' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:job) { Elasticrawl::ParseJob.new }
     let(:job_flow_id) { 'j-3QHDKKBT6VAIS' }
 
@@ -109,8 +113,8 @@ describe Elasticrawl::Crawl do
   end
 
   describe '.status' do
-    let(:job_desc) { 'Crawl: CC-MAIN-2013-20 Segments: 2 Parsing: 5 files per segment' }
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:job_desc) { 'Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 5 files per segment' }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:max_files) { 5 }
     let(:job) { Elasticrawl::ParseJob.new }
     let(:job_flow_id) { 'j-3QHDKKBT6VAIS' }
@@ -125,7 +129,7 @@ describe Elasticrawl::Crawl do
 
     it 'should display status of crawl segments' do
       expect(Elasticrawl::Crawl.status.split("\n")[1]).to eq \
-        'CC-MAIN-2013-20 Segments: to parse 1, parsed 2, total 3'
+        'CC-MAIN-2014-49 Segments: to parse 1, parsed 2, total 3'
     end
 
     it 'should display parse job desc' do

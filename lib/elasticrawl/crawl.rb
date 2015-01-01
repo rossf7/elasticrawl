@@ -46,13 +46,17 @@ module Elasticrawl
       end
     end
 
-    # Creates crawl segments from their S3 paths and returns the segment count.
+    # Creates crawl segments from the warc.paths file for this crawl.
     def create_segments
-      segment_paths = s3_segment_paths(self.crawl_name)
-      save if segment_paths.count > 0
-      segment_paths.map { |s3_path| create_segment(s3_path) }
+      file_paths = warc_paths(self.crawl_name)
+      segments = parse_segments(file_paths)
 
-      segment_paths.count
+      segments.keys.each do |segment_name|
+        file_count = segments[segment_name]
+        CrawlSegment.create_segment(self, segment_name, file_count)
+      end
+
+      segments.count
     end
 
     # Returns the list of segments from the database.
@@ -63,8 +67,8 @@ module Elasticrawl
     # Returns next # segments to be parsed. The maximum is 256
     # as this is the maximum # of steps for an Elastic MapReduce job flow.
     def next_segments(max_segments = nil)
-      max_segments = MAX_SEGMENTS if max_segments.nil?
-      max_segments = MAX_SEGMENTS if max_segments > MAX_SEGMENTS
+      max_segments = Elasticrawl::MAX_SEGMENTS if max_segments.nil?
+      max_segments = Elasticrawl::MAX_SEGMENTS if max_segments > Elasticrawl::MAX_SEGMENTS
 
       self.crawl_segments.where(:parse_time => nil).limit(max_segments)
     end
@@ -80,30 +84,47 @@ module Elasticrawl
     end
 
   private
-    # Creates a crawl segment based on its S3 path if it does not exist.
-    def create_segment(s3_path)
-      segment_name = s3_path.split('/').last
-      segment_s3_uri = URI::Generic.build(:scheme => 's3',
-                                          :host => COMMON_CRAWL_BUCKET,
-                                          :path => "/#{s3_path}").to_s
-
-      segment = CrawlSegment.where(:crawl_id => self.id,
-                         :segment_name => segment_name,
-                         :segment_s3_uri => segment_s3_uri).first_or_create
-    end
-
-    # Returns a list of S3 paths for the crawl name.
-    def s3_segment_paths(crawl_name)
-      s3_segment_tree(crawl_name).children.collect(&:prefix)
-    end
-
-    # Calls the S3 API and returns the tree structure for the crawl name.
-    def s3_segment_tree(crawl_name)
-      crawl_path = [COMMON_CRAWL_PATH, crawl_name, SEGMENTS_PATH].join
+    # Gets the WARC file paths from S3 for this crawl if it exists.
+    def warc_paths(crawl_name)
+      s3_path = [Elasticrawl::COMMON_CRAWL_PATH,
+                 crawl_name,
+                 Elasticrawl::WARC_PATHS].join('/')
 
       s3 = AWS::S3.new
-      bucket = s3.buckets[COMMON_CRAWL_BUCKET]
-      bucket.as_tree(:prefix => crawl_path)
+      bucket = s3.buckets[Elasticrawl::COMMON_CRAWL_BUCKET]
+      object = bucket.objects[s3_path]
+
+      uncompress_file(object)
+    end
+
+    # Takes in a S3 object and returns the contents as an uncompressed string.
+    def uncompress_file(s3_object)
+      result = ''
+
+      if s3_object.exists?
+        io = StringIO.new
+        io.write(s3_object.read)
+        io.rewind
+
+        gz = Zlib::GzipReader.new(io)
+        result = gz.read
+
+        gz.close
+      end
+
+      result
+    end
+
+    # Parses the segment names and file counts from the WARC file paths.
+    def parse_segments(warc_paths)
+      segments = Hash.new 0
+
+      warc_paths.split.each do |warc_path|
+        segment_name = warc_path.split('/')[4]
+        segments[segment_name] += 1 if segment_name.present?
+      end
+
+      segments
     end
   end
 end

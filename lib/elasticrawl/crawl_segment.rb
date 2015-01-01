@@ -18,15 +18,16 @@ module Elasticrawl
 private
     # Generates the S3 location where this segment is stored.
     def self.build_s3_uri(crawl_name, segment_name)
-      s3_path = [ Elasticrawl::COMMON_CRAWL_PATH,
-                  crawl_name,
-                  segment_name,
-                  Elasticrawl::SEGMENTS_PATH,
-                  '' ]
+      s3_path = ['',
+                 Elasticrawl::COMMON_CRAWL_PATH,
+                 crawl_name,
+                 Elasticrawl::SEGMENTS_PATH,
+                 segment_name,
+                 '']
 
       URI::Generic.build(:scheme => 's3',
                          :host => Elasticrawl::COMMON_CRAWL_BUCKET,
-                         :path => s3_path.join('/').to_s)
+                         :path => s3_path.join('/'))
     end
   end
 end
