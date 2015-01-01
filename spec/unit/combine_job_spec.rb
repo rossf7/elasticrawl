@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Elasticrawl::CombineJob do
   describe '#set_input_jobs' do
     let(:job_name) { (Time.now.to_f * 1000).to_i.to_s }
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:segment_list_1) { crawl.crawl_segments[0..1] }
     let(:segment_list_2) { [crawl.crawl_segments[2]]}
 
@@ -55,7 +55,7 @@ describe Elasticrawl::CombineJob do
   end
 
   describe '#run' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:parse_job_1) { Elasticrawl::ParseJob.new }
     let(:parse_job_2) { Elasticrawl::ParseJob.new }
     let(:combine_job) { Elasticrawl::CombineJob.new }
@@ -79,7 +79,7 @@ describe Elasticrawl::CombineJob do
   end
 
   describe '#log_uri' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:parse_job) { Elasticrawl::ParseJob.new }
     let(:job) { Elasticrawl::CombineJob.new }
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Elasticrawl::Cluster do
   describe '#create_job_flow' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:job) { Elasticrawl::ParseJob.new }
     let(:cluster) { Elasticrawl::Cluster.new }
     subject { cluster.create_job_flow(job) }

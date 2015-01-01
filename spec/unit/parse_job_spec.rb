@@ -3,9 +3,9 @@ require 'spec_helper'
 describe Elasticrawl::ParseJob do
   describe '#set_segments' do
     let(:job_name) { (Time.now.to_f * 1000).to_i.to_s }
-    let(:job_desc) { 'Crawl: CC-MAIN-2013-20 Segments: 2 Parsing: 5 files per segment' }
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
-    let(:max_files) { 5 }
+    let(:job_desc) { 'Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 3 files per segment' }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
+    let(:max_files) { 3 }
     let(:parse_job) { Elasticrawl::ParseJob.new }
 
     before do
@@ -42,9 +42,9 @@ describe Elasticrawl::ParseJob do
   end
 
   describe '#confirm_message' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:job) { Elasticrawl::ParseJob.new }
-    let(:job_desc) { 'Crawl: CC-MAIN-2013-20 Segments: 3 Parsing: 5 files per segment' }
+    let(:job_desc) { 'Crawl: CC-MAIN-2014-49 Segments: 3 Parsing: 3 files per segment' }
     let(:cluster_desc) {
       cluster_desc = <<-HERE
 Cluster configuration
@@ -56,7 +56,7 @@ Task:   --
 
     before do
       crawl.create_segments
-      job.set_segments(crawl.crawl_segments[0..2], 5)
+      job.set_segments(crawl.crawl_segments[0..2], 3)
     end
 
     it 'should display message including job desc' do
@@ -69,7 +69,7 @@ Task:   --
   end
 
   describe '#run' do
-    let(:crawl_name) { 'CC-MAIN-2013-20' }
+    let(:crawl_name) { 'CC-MAIN-2014-49' }
     let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => crawl_name) }
     let(:job) { Elasticrawl::ParseJob.new }
     let(:job_flow_id) { 'j-3QHDKKBT6VAIS' }
@@ -94,7 +94,7 @@ Task:   --
   end
 
   describe '#log_uri' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:job) { Elasticrawl::ParseJob.new }
 
     before do
@@ -108,9 +108,9 @@ Task:   --
   end
 
   describe '#history' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:job) { Elasticrawl::ParseJob.new }
-    let(:job_desc) { 'Crawl: CC-MAIN-2013-20 Segments: 3 Parsing: all files' }
+    let(:job_desc) { 'Crawl: CC-MAIN-2014-49 Segments: 3 Parsing: all files' }
     let(:job_flow_id) { 'j-3QHDKKBT6VAIS' }
 
     before do
