@@ -35,8 +35,7 @@ module Elasticrawl
     def set_step_name
       case self.job.type
         when 'Elasticrawl::ParseJob'
-          segment =self.crawl_segment.segment_name if self.crawl_segment.present?
-          "Segment: #{segment}"
+          self.crawl_segment.segment_desc if self.crawl_segment.present?
         when 'Elasticrawl::CombineJob'
           paths = self.input_paths.split(',')
           "Combining #{paths.count} jobs"

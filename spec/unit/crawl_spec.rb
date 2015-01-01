@@ -113,9 +113,9 @@ describe Elasticrawl::Crawl do
   end
 
   describe '.status' do
-    let(:job_desc) { 'Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 5 files per segment' }
+    let(:job_desc) { 'Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 3 files per segment' }
     let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
-    let(:max_files) { 5 }
+    let(:max_files) { 3 }
     let(:job) { Elasticrawl::ParseJob.new }
     let(:job_flow_id) { 'j-3QHDKKBT6VAIS' }
 
@@ -134,6 +134,7 @@ describe Elasticrawl::Crawl do
 
     it 'should display parse job desc' do
       crawl_status = Elasticrawl::Crawl.status.split("\n")[4]
+
       expect(crawl_status.include?(job.job_name)).to eq true
       expect(crawl_status.include?(job.job_desc)).to eq true
     end

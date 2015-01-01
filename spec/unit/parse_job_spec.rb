@@ -45,13 +45,15 @@ describe Elasticrawl::ParseJob do
     let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:job) { Elasticrawl::ParseJob.new }
     let(:job_desc) { 'Crawl: CC-MAIN-2014-49 Segments: 3 Parsing: 3 files per segment' }
+    let(:segment_desc) { 'Segment: 1416400372202.67 Files: 3' }
+
     let(:cluster_desc) {
-      cluster_desc = <<-HERE
+      cluster_desc = <<-CLUSTER_DESC
 Cluster configuration
 Master: 1 m1.medium  (Spot: 0.12)
 Core:   2 m1.medium  (Spot: 0.12)
 Task:   --
-      HERE
+      CLUSTER_DESC
     }
 
     before do
@@ -61,6 +63,10 @@ Task:   --
 
     it 'should display message including job desc' do
       expect(job.confirm_message.include?(job_desc)).to eq true
+    end
+
+    it 'should display message including segment desc' do
+      expect(job.confirm_message.include?(segment_desc)).to eq true
     end
 
     it 'should display message including cluster desc' do

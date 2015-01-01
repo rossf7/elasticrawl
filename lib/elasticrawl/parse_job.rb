@@ -41,6 +41,20 @@ module Elasticrawl
       build_s3_uri(s3_path)
     end
 
+    # Return list of segment descriptions.
+    def segment_list
+      segments = []
+
+      job_steps.each do |job_step|
+        if job_step.crawl_segment.present?
+          segment = job_step.crawl_segment
+          segments.push(segment.segment_desc)
+        end
+      end
+
+      segments
+    end
+
   private
     # Creates a job step for the crawl segment.
     def create_job_step(segment)

@@ -7,12 +7,19 @@ module Elasticrawl
     # Elastic MapReduce job flow and cluster.
     def confirm_message
       cluster = Cluster.new
-      message = []
 
-      message[0] = 'Job configuration'
-      message[1] = self.job_desc
-      message[2] = ''
-      message[3] = cluster.cluster_desc
+      case self.type
+      when 'Elasticrawl::ParseJob'
+        message = segment_list
+      else
+        message = []
+      end
+
+      message.push('Job configuration')
+      message.push(self.job_desc)
+      message.push('')
+      message.push(cluster.cluster_desc)
+
       message.join("\n")
     end
 
