@@ -5,11 +5,6 @@ module Elasticrawl
   class Crawl < ActiveRecord::Base
     has_many :crawl_segments
 
-    COMMON_CRAWL_BUCKET = 'aws-publicdatasets'
-    COMMON_CRAWL_PATH = 'common-crawl/crawl-data/'
-    SEGMENTS_PATH = '/segments/'
-    MAX_SEGMENTS = 256
-
     # Returns the status of all saved crawls and the current job history.
     def self.status(show_all = false)
       status = ['Crawl Status']
