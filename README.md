@@ -1,34 +1,30 @@
 # Elasticrawl
 
-Launch AWS Elastic MapReduce jobs that process Common Crawl data.
-Elasticrawl works with the latest Common Crawl data structure and file formats
-([2013 data onwards](http://commoncrawl.org/new-crawl-data-available/)).
+Command line tool for launching Hadoop jobs using AWS EMR (Elastic MapReduce) to process Common Crawl data.
+Elasticrawl can be used with [crawl data](http://commoncrawl.org/the-data/get-started/) from April 2014 onwards.
+
+| Crawl Name     | Month     | Web Pages
+| -------------- |:--------:|:--------:|
+| [CC-MAIN-2014-15](http://blog.commoncrawl.org/2014/07/april-2014-crawl-data-available/) | April 2014 | ~ 2.3 billion
+| [CC-MAIN-2014-23](http://blog.commoncrawl.org/2014/08/july-2014-crawl-data-available/) | July 2014 | ~ 3.6 billion
+| [CC-MAIN-2014-35](http://blog.commoncrawl.org/2014/09/august-2014-crawl-data-available/) | August 2014 | ~ 2.8 billion
+| [CC-MAIN-2014-49](http://blog.commoncrawl.org/2014/12/november-2014-crawl-archive-available/) | November 2014 | ~ 1.95 billion
+
+Common Crawl announce new crawls on their [blog](http://blog.commoncrawl.org/).
+
 Ships with a default configuration that launches the
 [elasticrawl-examples](https://github.com/rossf7/elasticrawl-examples) jobs.
 This is an implementation of the standard Hadoop Word Count example.
 
-## Overview
+## More Information
 
-Common Crawl have released 2 web crawls of 2013 data. Further crawls will be released
-during 2014. Each crawl is split into multiple segments that contain 3 file types.
-
-* WARC - WARC files with the HTTP request and response for each fetch
-* WAT - WARC encoded files containing JSON metadata
-* WET - WARC encoded text extractions of the HTTP responses
-
-| Crawl Name     | Date     | Segments | Pages         | Size (uncompressed) |
-| -------------- |:--------:|:--------:|:-------------:|:-------------------:|
-| CC-MAIN-2013-48| Nov 2013 | 517      | ~ 2.3 billion | 148 TB              |
-| CC-MAIN-2013-20| May 2013 | 316      | ~ 2.0 billion | 102 TB              |
-
-Elasticrawl is a command line tool that automates launching Elastic MapReduce
-jobs against this data.
+* [Blog post](https://rossfairbanks.com/2015/01/03/parsing-common-crawl-using-elasticrawl.html) with walkthrough of running the Hadoop WordCount example on the November 2014 crawl.
 
 ## Installation
 
 ### Dependencies
 
-Elasticrawl is developed in Ruby and requires Ruby 1.9.3 or later.
+Elasticrawl is developed in Ruby and requires Ruby 1.9.3 or later (Ruby 2.1 is recommended).
 Installing using [rbenv](https://github.com/sstephenson/rbenv#installation)
 and the ruby-build plugin is recommended.
 
@@ -36,20 +32,21 @@ A SQLite database is used to store details of crawls and jobs. Installing the sq
 gem requires the development headers to be installed.
 
 ```bash
+# OS X
+brew install sqlite3
 
+# CentOS
 sudo yum install sqlite-devel
 
-# OR
-
+# Ubuntu
 sudo apt-get install libsqlite3-dev
-
 ```
 
 ### Install elasticrawl
 
 [![Gem Version](https://badge.fury.io/rb/elasticrawl.png)](http://badge.fury.io/rb/elasticrawl)
 [![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
-[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 1.9.3, 2.0.0, 2.1.1
+[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 1.9.3, 2.0.0, 2.1.5
 
 ```bash
 ~$ gem install elasticrawl --no-rdoc --no-ri
@@ -62,21 +59,12 @@ to your path.
 ~$ rbenv rehash
 ```
 
-## Quick Start
+## Commands
 
-In this example you'll launch 2 EMR jobs against a small portion of the Nov
-2013 crawl. Each job will take around 20 minutes to run. Most of this is setup
-time while your EC2 spot instances are provisioned and your Hadoop cluster is
-configured.
+### elasticrawl init
 
-You'll need to have an [AWS account](https://portal.aws.amazon.com/gp/aws/developer/registration/index.html)
-to use elasticrawl. The total cost of the 2 EMR jobs will be under $1 USD.
-
-### Setup
-
-You'll need to choose an S3 bucket name and enter your AWS access key and
-secret key. The S3 bucket will be used for storing data and logs. S3 bucket
-names must be unique, using hyphens rather than underscores is recommended.
+Init takes in an S3 bucket name and your AWS credentials. The S3 bucket will be created
+and will store your data and logs.
 
 ```bash
 ~$ elasticrawl init your-s3-bucket
@@ -91,38 +79,35 @@ Config dir /Users/ross/.elasticrawl created
 Config complete
 ```
 
-### Parse Job
+### elasticrawl parse
 
-For this example you'll parse the first 2 WET files in the first 2 segments
-of the Nov 2013 crawl.
+Parse takes in the crawl name and an optional number of segments and files to parse.
 
 ```bash
-~$ elasticrawl parse CC-MAIN-2013-48 --max-segments 2 --max-files 2
+~$ elasticrawl parse CC-MAIN-2014-49 --max-segments 2 --max-files 3
+Segments
+Segment: 1416400372202.67 Files: 150
+Segment: 1416400372490.23 Files: 124
 
 Job configuration
-Crawl: CC-MAIN-2013-48 Segments: 2 Parsing: 2 files per segment
+Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 3 files per segment
 
 Cluster configuration
 Master: 1 m1.medium  (Spot: 0.12)
 Core:   2 m1.medium  (Spot: 0.12)
 Task:   --
 Launch job? (y/n)
-
 y
-Job Name: 1391458746774 Job Flow ID: j-2X9JVDC1UKEQ1
+
+Job: 1420124830792 Job Flow ID: j-2R3MFE6TWLIUB
 ```
 
-You can monitor the progress of your job in the Elastic MapReduce section
-of the AWS web console.
+### elasticrawl combine
 
-### Combine Job
-
-The combine job will aggregate the word count results from both segments into
-a single set of files.
+Combine takes in the results of previous parse jobs and produces a combined set of results.
 
 ```bash
-~$ elasticrawl combine --input-jobs 1391458746774
-
+~$ elasticrawl combine --input-jobs 1420124830792
 Job configuration
 Combining: 2 segments
 
@@ -131,20 +116,38 @@ Master: 1 m1.medium  (Spot: 0.12)
 Core:   2 m1.medium  (Spot: 0.12)
 Task:   --
 Launch job? (y/n)
-
 y
-Job Name: 1391459918730 Job Flow ID: j-GTJ2M7D1TXO6
+
+Job: 1420129496115 Job Flow ID: j-251GXDIZGK8HL
 ```
 
-Once the combine job is complete you can download your results from the
-S3 section of the AWS web console. Your data will be stored in
+### elasticrawl status
 
-[your S3 bucket]/data/2-combine/[job name]
+Status shows crawls and your job history.
 
-### Cleaning Up
+```bash
+~$ elasticrawl status
+Crawl Status
+CC-MAIN-2014-49 Segments: to parse 134, parsed 2, total 136
 
-You'll be charged by AWS for any data stored in your S3 bucket. The destroy
-command deletes your S3 bucket and the ~/.elasticrawl/ directory.
+Job History (last 10)
+1420124830792 Launched: 2015-01-01 15:07:10 Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 3 files per segment
+```
+
+### elasticrawl reset
+
+Reset a crawl so it is parsed again.
+
+```bash
+~$ elasticrawl reset CC-MAIN-2014-49
+Reset crawl? (y/n)
+y
+ CC-MAIN-2014-49 Segments: to parse 136, parsed 0, total 136
+```
+
+### elasticrawl destroy
+
+Destroy deletes your S3 bucket and the ~/.elasticrawl directory.
 
 ```bash
 ~$ elasticrawl destroy
@@ -165,7 +168,7 @@ Config deleted
 The elasticrawl init command creates the ~/elasticrawl/ directory which
 contains
 
-* [aws.yml](https://github.com/rossf7/elasticrawl/blob/master/templates/aws.yml) -
+* [aws.yml](https://github.com/rossf7/.elasticrawl/blob/master/templates/aws.yml) -
 stores your AWS access credentials. Or you can set the environment
 variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 
@@ -175,61 +178,13 @@ configures the EC2 instances that are launched to form your EMR cluster
 * [jobs.yml](https://github.com/rossf7/elasticrawl/blob/master/templates/jobs.yml) -
 stores your S3 bucket name and the config for the parse and combine jobs
 
-## Managing Segments
-
-Each Common Crawl segment is parsed as a separate EMR job step. This avoids
-overloading the job tracker and means if a job fails then only data from the
-current segment is lost. However an EMR job flow can only contain 256 steps.
-So to process an entire crawl multiple parse jobs must be combined.
-
-```bash
-~$ elasticrawl combine --input-jobs 1391430796774 1391458746774 1391498046704
-```
-
-You can use the status command to see details of crawls and jobs.
-
-```bash
-~$ elasticrawl status
-
-Crawl Status
-CC-MAIN-2013-48 Segments: to parse 517, parsed 2, total 519
-
-Job History (last 10)
-1391459918730 Launched: 2014-02-04 13:58:12 Combining: 2 segments
-1391458746774 Launched: 2014-02-04 13:55:50 Crawl: CC-MAIN-2013-48 Segments: 2 Parsing: 2 files per segment
-```
-
-You can use the reset command to parse a crawl again.
-
-```bash
-~$ elasticrawl reset CC-MAIN-2013-48
-
-Reset crawl? (y/n)
-y
-CC-MAIN-2013-48 Segments: to parse 519, parsed 0, total 519
-```
-
-To parse the same segments multiple times.
-
-```bash
-~$ elasticrawl parse CC-MAIN-2013-48 --segment-list 1386163036037 1386163035819 --max-files 2
-```
-
-## Running your own Jobs
-
-1. Fork the [elasticrawl-examples](https://github.com/rossf7/elasticrawl-examples)
-2. Make your changes
-3. Compile your changes into a JAR using Maven
-4. Upload your JAR to your own S3 bucket
-5. Edit ~/.elasticrawl/jobs.yml with your JAR and class names
-
 ## TODO
 
 * Add support for Streaming and Pig jobs
 
 ## Thanks
 
-* Thanks to everyone at Common Crawl for making this awesome dataset available.
+* Thanks to everyone at Common Crawl for making this awesome dataset available!
 * Thanks to Robert Slifka for the [elasticity](https://github.com/rslifka/elasticity)
 gem which provides a nice Ruby wrapper for the EMR REST API.
 

@@ -6,7 +6,7 @@ class CreateJobs < ActiveRecord::Migration
       t.string :job_desc
       t.integer :max_files
       t.string :job_flow_id
-      t.timestamps
+      t.timestamps(:null => false)
     end
 
     add_index(:jobs, :job_name, :unique => true)

@@ -5,7 +5,7 @@ class CreateJobSteps < ActiveRecord::Migration
       t.references :crawl_segment
       t.text :input_paths
       t.text :output_path
-      t.timestamps
+      t.timestamps(:null => false)
     end
   end
 end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Elasticrawl::Cluster do
   describe '#create_job_flow' do
-    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2013-20') }
+    let(:crawl) { Elasticrawl::Crawl.create(:crawl_name => 'CC-MAIN-2014-49') }
     let(:job) { Elasticrawl::ParseJob.new }
     let(:cluster) { Elasticrawl::Cluster.new }
     subject { cluster.create_job_flow(job) }
@@ -16,7 +16,7 @@ describe Elasticrawl::Cluster do
     end
 
     it 'should have a job flow name' do
-      expect(subject.name).to eq "Job Name: #{job.job_name} #{job.job_desc}"
+      expect(subject.name).to eq "Job: #{job.job_name} #{job.job_desc}"
     end
 
     it 'should have a log uri' do

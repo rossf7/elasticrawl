@@ -13,7 +13,7 @@ module Elasticrawl
       config = Config.new
       job_flow = Elasticity::JobFlow.new(config.access_key_id,
                                          config.secret_access_key)
-      job_flow.name = "Job Name: #{job.job_name} #{job.job_desc}"
+      job_flow.name = "Job: #{job.job_name} #{job.job_desc}"
       job_flow.log_uri = job.log_uri
 
       configure_job_flow(job_flow)

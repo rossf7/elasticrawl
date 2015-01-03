@@ -5,7 +5,7 @@ class CreateCrawlSegments < ActiveRecord::Migration
       t.string :segment_name
       t.string :segment_s3_uri
       t.datetime :parse_time
-      t.timestamps
+      t.timestamps(:null => false)
     end
 
     add_index(:crawl_segments, :segment_name, :unique => true)
