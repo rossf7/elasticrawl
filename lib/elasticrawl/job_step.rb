@@ -13,7 +13,7 @@ module Elasticrawl
     # data files to process before the job exits.
     def job_flow_step(job_config)
       jar = job_config['jar']
-      max_files = self.job.max_files 
+      max_files = self.job.max_files
 
       step_args = []
       step_args[0] = job_config['class']
@@ -35,7 +35,10 @@ module Elasticrawl
     def set_step_name
       case self.job.type
         when 'Elasticrawl::ParseJob'
-          self.crawl_segment.segment_desc if self.crawl_segment.present?
+          if self.crawl_segment.present?
+            max_files = self.job.max_files || 'all'
+            "#{self.crawl_segment.segment_desc} Parsing: #{max_files}"
+          end
         when 'Elasticrawl::CombineJob'
           paths = self.input_paths.split(',')
           "Combining #{paths.count} jobs"

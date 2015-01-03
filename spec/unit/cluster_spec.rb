@@ -16,7 +16,7 @@ describe Elasticrawl::Cluster do
     end
 
     it 'should have a job flow name' do
-      expect(subject.name).to eq "Job Name: #{job.job_name} #{job.job_desc}"
+      expect(subject.name).to eq "Job: #{job.job_name} #{job.job_desc}"
     end
 
     it 'should have a log uri' do

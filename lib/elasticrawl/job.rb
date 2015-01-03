@@ -26,7 +26,7 @@ module Elasticrawl
     # Displays the Job Name and Elastic MapReduce Job Flow ID if the job was
     # launched successfully.
     def result_message
-      "\nJob Name: #{self.job_name} Job Flow ID: #{self.job_flow_id}"
+      "\nJob: #{self.job_name} Job Flow ID: #{self.job_flow_id}"
     end
 
     # Displays the history of the current job. Called by the status command.
