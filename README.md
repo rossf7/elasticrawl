@@ -5,10 +5,11 @@ Elasticrawl can be used with [crawl data](http://commoncrawl.org/the-data/get-st
 
 | Crawl Name     | Month     | Web Pages
 | -------------- |:--------:|:--------:|
-| [CC-MAIN-2014-15](http://blog.commoncrawl.org/2014/07/april-2014-crawl-data-available/) | April 2014 | ~ 2.3 billion
-| [CC-MAIN-2014-23](http://blog.commoncrawl.org/2014/08/july-2014-crawl-data-available/) | July 2014 | ~ 3.6 billion
-| [CC-MAIN-2014-35](http://blog.commoncrawl.org/2014/09/august-2014-crawl-data-available/) | August 2014 | ~ 2.8 billion
+| [CC-MAIN-2014-52](http://blog.commoncrawl.org/2015/01/december-2014-crawl-archive-available/) | December 2014 | ~ 2.08 billion
 | [CC-MAIN-2014-49](http://blog.commoncrawl.org/2014/12/november-2014-crawl-archive-available/) | November 2014 | ~ 1.95 billion
+| [CC-MAIN-2014-35](http://blog.commoncrawl.org/2014/09/august-2014-crawl-data-available/) | August 2014 | ~ 2.8 billion
+| [CC-MAIN-2014-23](http://blog.commoncrawl.org/2014/08/july-2014-crawl-data-available/) | July 2014 | ~ 3.6 billion
+| [CC-MAIN-2014-15](http://blog.commoncrawl.org/2014/07/april-2014-crawl-data-available/) | April 2014 | ~ 2.3 billion
 
 Common Crawl announce new crawls on their [blog](http://blog.commoncrawl.org/).
 
@@ -23,15 +24,15 @@ This [blog post](https://rossfairbanks.com/2015/01/03/parsing-common-crawl-using
 Deployment packages are available for Linux and OS X, unfortunately Windows isn't supported yet. Download the package, extract it and run the elasticrawl command from the package directory.
 
 ```bash
-# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.1-osx.tar.gz
-# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.1-linux-x86_64.tar.gz
-# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.1-linux-x86.tar.gz
+# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-osx.tar.gz
+# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-linux-x86_64.tar.gz
+# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-linux-x86.tar.gz
 
 # e.g.
 
-curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.1-osx.tar.gz
-tar -xzf elasticrawl-1.1.1-osx.tar.gz
-cd elasticrawl-1.1.1-osx/
+curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-osx.tar.gz
+tar -xzf elasticrawl-1.1.2-osx.tar.gz
+cd elasticrawl-1.1.2-osx/
 ./elasticrawl --help
 ```
 
