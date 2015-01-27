@@ -101,7 +101,7 @@ module Elasticrawl
       rescue AWS::S3::Errors::SignatureDoesNotMatch => e
         raise AWSCredentialsInvalidError, 'AWS access credentials are invalid'
       rescue AWS::Errors::Base => s3e
-        raise S3AccessError.new(s3e.http_response), e.message
+        raise S3AccessError.new(s3e.http_response), s3e.message
       end
     end
 
@@ -159,7 +159,7 @@ module Elasticrawl
         s3.buckets.create(bucket_name)
 
       rescue AWS::Errors::Base => s3e
-        raise S3AccessError.new(s3e.http_response), e.message
+        raise S3AccessError.new(s3e.http_response), s3e.message
       end
     end
 
@@ -171,7 +171,7 @@ module Elasticrawl
         bucket.delete!
 
       rescue AWS::Errors::Base => s3e
-        raise S3AccessError.new(s3e.http_response), e.message
+        raise S3AccessError.new(s3e.http_response), s3e.message
       end
     end
 
