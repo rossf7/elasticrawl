@@ -138,4 +138,12 @@ rescue Thor::Error => e
 # Show elasticrawl errors.
 rescue Elasticrawl::Error => e
   puts("ERROR: #{e.message}")
+  puts e.backtrace
+
+  if e.http_response.present?
+    response = e.http_response
+
+    puts "HTTP Response: #{response.status}"
+    puts response.body if response.body.present?
+  end
 end
