@@ -1,6 +1,12 @@
 module Elasticrawl
   # Base error class extends standard error.
-  class Error < StandardError; end
+  class Error < StandardError
+    attr_reader :http_response
+
+    def initialize(response = nil)
+      @http_response = response
+    end
+  end
 
   # AWS access credentials are invalid.
   class AWSCredentialsInvalidError < Error; end

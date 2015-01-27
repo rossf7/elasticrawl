@@ -91,12 +91,18 @@ module Elasticrawl
       s3_path = [Elasticrawl::COMMON_CRAWL_PATH,
                  crawl_name,
                  Elasticrawl::WARC_PATHS].join('/')
+      begin
+        s3 = AWS::S3.new
+        bucket = s3.buckets[Elasticrawl::COMMON_CRAWL_BUCKET]
+        object = bucket.objects[s3_path]
 
-      s3 = AWS::S3.new
-      bucket = s3.buckets[Elasticrawl::COMMON_CRAWL_BUCKET]
-      object = bucket.objects[s3_path]
+        uncompress_file(object)
 
-      uncompress_file(object)
+      rescue AWS::Errors::Base => s3e
+        raise S3AccessError.new(s3e.http_response), 'Failed to get WARC paths'
+      rescue Exception => e
+        raise S3AccessError, 'Failed to get WARC paths'
+      end
     end
 
     # Takes in a S3 object and returns the contents as an uncompressed string.

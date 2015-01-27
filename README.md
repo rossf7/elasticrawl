@@ -23,9 +23,9 @@ This [blog post](https://rossfairbanks.com/2015/01/03/parsing-common-crawl-using
 Deployment packages are available for Linux and OS X, unfortunately Windows isn't supported yet. Download the package, extract it and run the elasticrawl command from the package directory.
 
 ```bash
-# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.0-osx.tar.gz
-# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.0-linux-x86_64.tar.gz
-# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.0-linux-x86.tar.gz
+# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.1-osx.tar.gz
+# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.1-linux-x86_64.tar.gz
+# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.1-linux-x86.tar.gz
 
 # e.g.
 
@@ -43,7 +43,7 @@ The init command takes in an S3 bucket name and your AWS credentials. The S3 buc
 and will store your data and logs.
 
 ```bash
-~$ elasticrawl init your-s3-bucket
+~$ ./elasticrawl init your-s3-bucket
 
 Enter AWS Access Key ID: ************
 Enter AWS Secret Access Key: ************
@@ -60,7 +60,7 @@ Config complete
 The parse command takes in the crawl name and an optional number of segments and files to parse.
 
 ```bash
-~$ elasticrawl parse CC-MAIN-2014-49 --max-segments 2 --max-files 3
+~$ ./elasticrawl parse CC-MAIN-2014-49 --max-segments 2 --max-files 3
 Segments
 Segment: 1416400372202.67 Files: 150
 Segment: 1416400372490.23 Files: 124
@@ -83,7 +83,7 @@ Job: 1420124830792 Job Flow ID: j-2R3MFE6TWLIUB
 The combine command takes in the results of previous parse jobs and produces a combined set of results.
 
 ```bash
-~$ elasticrawl combine --input-jobs 1420124830792
+~$ ./elasticrawl combine --input-jobs 1420124830792
 Job configuration
 Combining: 2 segments
 
@@ -102,7 +102,7 @@ Job: 1420129496115 Job Flow ID: j-251GXDIZGK8HL
 The status command shows crawls and your job history.
 
 ```bash
-~$ elasticrawl status
+~$ ./elasticrawl status
 Crawl Status
 CC-MAIN-2014-49 Segments: to parse 134, parsed 2, total 136
 
@@ -115,7 +115,7 @@ Job History (last 10)
 The reset comment resets a crawl so it is parsed again.
 
 ```bash
-~$ elasticrawl reset CC-MAIN-2014-49
+~$ ./elasticrawl reset CC-MAIN-2014-49
 Reset crawl? (y/n)
 y
  CC-MAIN-2014-49 Segments: to parse 136, parsed 0, total 136
@@ -126,7 +126,7 @@ y
 The destroy command deletes your S3 bucket and the ~/.elasticrawl directory.
 
 ```bash
-~$ elasticrawl destroy
+~$ ./elasticrawl destroy
 
 WARNING:
 Bucket s3://elasticrawl-test and its data will be deleted
