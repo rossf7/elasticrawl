@@ -24,15 +24,15 @@ This [blog post](https://rossfairbanks.com/2015/01/03/parsing-common-crawl-using
 Deployment packages are available for Linux and OS X, unfortunately Windows isn't supported yet. Download the package, extract it and run the elasticrawl command from the package directory.
 
 ```bash
-# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-osx.tar.gz
-# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-linux-x86_64.tar.gz
-# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-linux-x86.tar.gz
+# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-osx.tar.gz
+# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-linux-x86_64.tar.gz
+# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-linux-x86.tar.gz
 
 # e.g.
 
-curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.2-osx.tar.gz
-tar -xzf elasticrawl-1.1.2-osx.tar.gz
-cd elasticrawl-1.1.2-osx/
+curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-osx.tar.gz
+tar -xzf elasticrawl-1.1.3-osx.tar.gz
+cd elasticrawl-1.1.3-osx/
 ./elasticrawl --help
 ```
 
