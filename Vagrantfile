@@ -21,6 +21,9 @@ Vagrant.configure("2") do |config|
     # Network config
     elasticrawl.vm.network :public_network
 
+    # Synced folder for creating deploy packages
+    elasticrawl.vm.synced_folder "../traveling-elasticrawl/", "/traveling-elasticrawl/"
+
     # Provision using Chef Solo
     elasticrawl.vm.provision "chef_solo" do |chef|
       chef.cookbooks_path = "cookbooks"
@@ -53,6 +56,7 @@ Vagrant.configure("2") do |config|
           ]
         }
       }
+
     end
   end
 end
