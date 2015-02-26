@@ -157,11 +157,11 @@ stores your S3 bucket name and the config for the parse and combine jobs
 
 ## Development
 
-Elasticrawl is developed in Ruby and requires Ruby 1.9.3 or later (Ruby 2.1 is recommended). The sqlite3 and nokogiri gems have C extensions which mean you may need to install development headers.
+Elasticrawl is developed in Ruby and requires Ruby 2.0.0 or later (Ruby 2.1 is recommended). The sqlite3 and nokogiri gems have C extensions which mean you may need to install development headers.
 
 [![Gem Version](https://badge.fury.io/rb/elasticrawl.png)](http://badge.fury.io/rb/elasticrawl)
 [![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
-[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 1.9.3, 2.0.0, 2.1.5, 2.2.0
+[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 2.0.0, 2.1.5, 2.2.0
 
 The deployment packages are created using [Traveling Ruby](http://phusion.github.io/traveling-ruby/). The deploy packages contain a Ruby 2.1 interpreter, Gems and the compiled C extensions. The [traveling-elasticrawl](https://github.com/rossf7/traveling-elasticrawl) repository has a Rake task that automates building the deployment packages.
 
