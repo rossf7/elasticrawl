@@ -3,13 +3,14 @@
 Command line tool for launching Hadoop jobs using AWS EMR (Elastic MapReduce) to process Common Crawl data.
 Elasticrawl can be used with [crawl data](http://commoncrawl.org/the-data/get-started/) from April 2014 onwards.
 
-| Crawl Name     | Month     | Web Pages
-| -------------- |:--------:|:--------:|
-| [CC-MAIN-2014-52](http://blog.commoncrawl.org/2015/01/december-2014-crawl-archive-available/) | December 2014 | ~ 2.08 billion
-| [CC-MAIN-2014-49](http://blog.commoncrawl.org/2014/12/november-2014-crawl-archive-available/) | November 2014 | ~ 1.95 billion
-| [CC-MAIN-2014-35](http://blog.commoncrawl.org/2014/09/august-2014-crawl-data-available/) | August 2014 | ~ 2.8 billion
-| [CC-MAIN-2014-23](http://blog.commoncrawl.org/2014/08/july-2014-crawl-data-available/) | July 2014 | ~ 3.6 billion
-| [CC-MAIN-2014-15](http://blog.commoncrawl.org/2014/07/april-2014-crawl-data-available/) | April 2014 | ~ 2.3 billion
+| Crawl Name     | Month     | Web Pages  | Segments
+| -------------- |:---------:|:----------:|:-------:
+| [CC-MAIN-2015-06](http://blog.commoncrawl.org/2015/03/january-2015-crawl-archive-available/) | January 2015 | ~ 1.82 billion | 98
+| [CC-MAIN-2014-52](http://blog.commoncrawl.org/2015/01/december-2014-crawl-archive-available/) | December 2014 | ~ 2.08 billion | 314
+| [CC-MAIN-2014-49](http://blog.commoncrawl.org/2014/12/november-2014-crawl-archive-available/) | November 2014 | ~ 1.95 billion | 136
+| [CC-MAIN-2014-35](http://blog.commoncrawl.org/2014/09/august-2014-crawl-data-available/) | August 2014 | ~ 2.8 billion | 111
+| [CC-MAIN-2014-23](http://blog.commoncrawl.org/2014/08/july-2014-crawl-data-available/) | July 2014 | ~ 3.6 billion | 253
+| [CC-MAIN-2014-15](http://blog.commoncrawl.org/2014/07/april-2014-crawl-data-available/) | April 2014 | ~ 2.3 billion | 70
 
 Common Crawl announce new crawls on their [blog](http://blog.commoncrawl.org/).
 
