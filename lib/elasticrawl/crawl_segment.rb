@@ -16,7 +16,7 @@ module Elasticrawl
 
       segment = CrawlSegment.where(:crawl_id => crawl.id,
                                   :segment_name => segment_name,
-                                  :segment_s3_uri => s3_uri,
+                                  :segment_s3_uri => s3_uri.to_s,
                                   :file_count => file_count).first_or_create
     end
 
