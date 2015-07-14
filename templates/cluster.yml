@@ -42,3 +42,9 @@ placement: 'us-east-1a'
 
 # The AMI version to use when launching instances.
 emr_ami_version: 'latest'
+
+# Default instance profile
+job_flow_role: 'EMR_EC2_DefaultRole'
+
+# Default service role
+service_role: 'EMR_DefaultRole'

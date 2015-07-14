@@ -32,7 +32,7 @@ private
 
       URI::Generic.build(:scheme => 's3',
                          :host => Elasticrawl::COMMON_CRAWL_BUCKET,
-                         :path => s3_path.join('/'))
+                         :path => s3_path.join('/')).to_s
     end
   end
 end
