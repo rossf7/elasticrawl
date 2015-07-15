@@ -35,9 +35,9 @@ Deployment packages are available for Linux and OS X, unfortunately Windows isn'
 
 # e.g.
 
-curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-osx.tar.gz
-tar -xzf elasticrawl-1.1.3-osx.tar.gz
-cd elasticrawl-1.1.3-osx/
+curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.4-osx.tar.gz
+tar -xzf elasticrawl-1.1.4-osx.tar.gz
+cd elasticrawl-1.1.4-osx/
 ./elasticrawl --help
 ```
 
