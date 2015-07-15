@@ -5,6 +5,10 @@ Elasticrawl can be used with [crawl data](http://commoncrawl.org/the-data/get-st
 
 | Crawl Name     | Month     | Web Pages  | Segments
 | -------------- |:---------:|:----------:|:-------:
+| [CC-MAIN-2015-22](http://blog.commoncrawl.org/2015/07/may-2015-crawl-archive-available/) | May 2015 | ~ 2.05 billion | 124
+| [CC-MAIN-2015-18](http://blog.commoncrawl.org/2015/05/april-2015-crawl-archive-available/) | April 2015 | ~ 2.11 billion | 188
+| [CC-MAIN-2015-14](http://blog.commoncrawl.org/2015/05/march-2015-crawl-archive-available/) | March 2015 | ~ 1.64 billion | 100
+| [CC-MAIN-2015-11](http://blog.commoncrawl.org/2015/03/february-2015-crawl-archive-available/) | February 2015 | ~ 1.9 billion | 100
 | [CC-MAIN-2015-06](http://blog.commoncrawl.org/2015/03/january-2015-crawl-archive-available/) | January 2015 | ~ 1.82 billion | 98
 | [CC-MAIN-2014-52](http://blog.commoncrawl.org/2015/01/december-2014-crawl-archive-available/) | December 2014 | ~ 2.08 billion | 314
 | [CC-MAIN-2014-49](http://blog.commoncrawl.org/2014/12/november-2014-crawl-archive-available/) | November 2014 | ~ 1.95 billion | 136
