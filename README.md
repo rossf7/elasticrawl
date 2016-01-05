@@ -16,15 +16,15 @@ This [blog post](https://rossfairbanks.com/2015/01/03/parsing-common-crawl-using
 Deployment packages are available for Linux and OS X, unfortunately Windows isn't supported yet. Download the package, extract it and run the elasticrawl command from the package directory.
 
 ```bash
-# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-osx.tar.gz
-# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-linux-x86_64.tar.gz
-# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-linux-x86.tar.gz
+# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.4-osx.tar.gz
+# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.4-linux-x86_64.tar.gz
+# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.4-linux-x86.tar.gz
 
 # e.g.
 
-curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-osx.tar.gz
-tar -xzf elasticrawl-1.1.5-osx.tar.gz
-cd elasticrawl-1.1.5-osx/
+curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.4-osx.tar.gz
+tar -xzf elasticrawl-1.1.4-osx.tar.gz
+cd elasticrawl-1.1.4-osx/
 ./elasticrawl --help
 ```
 
@@ -164,7 +164,7 @@ Elasticrawl is developed in Ruby and requires Ruby 2.0.0 or later (Ruby 2.2 is r
 [![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
 [![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 2.0.0, 2.1.8, 2.2.4, 2.3.0
 
-The deployment packages are created using [Traveling Ruby](http://phusion.github.io/traveling-ruby/). The deploy packages contain a Ruby 2.2 interpreter, Gems and the compiled C extensions. The [traveling-elasticrawl](https://github.com/rossf7/traveling-elasticrawl) repository has a Rake task that automates building the deployment packages.
+The deployment packages are created using [Traveling Ruby](http://phusion.github.io/traveling-ruby/). The deploy packages contain a Ruby 2.1 interpreter, Gems and the compiled C extensions. The [traveling-elasticrawl](https://github.com/rossf7/traveling-elasticrawl) repository has a Rake task that automates building the deployment packages.
 
 ## TODO
 
