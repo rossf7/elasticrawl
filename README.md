@@ -1,24 +1,11 @@
 # Elasticrawl
 
-Command line tool for launching Hadoop jobs using AWS EMR (Elastic MapReduce) to process Common Crawl data.
-Elasticrawl can be used with [crawl data](http://commoncrawl.org/the-data/get-started/) from April 2014 onwards.
+* Command line tool for launching Hadoop jobs using AWS EMR (Elastic MapReduce) to process Common Crawl data.
+* Elasticrawl can be used with [crawl data](http://commoncrawl.org/the-data/get-started/) from April 2014 onwards.
+* A list of crawls released by Common Crawl is maintained on the [wiki](https://github.com/rossf7/elasticrawl/wiki).
+* Common Crawl announce new crawls on their [blog](http://blog.commoncrawl.org/).
 
-| Crawl Name     | Month     | Web Pages  | Segments
-| -------------- |:---------:|:----------:|:-------:
-| [CC-MAIN-2015-22](http://blog.commoncrawl.org/2015/07/may-2015-crawl-archive-available/) | May 2015 | ~ 2.05 billion | 124
-| [CC-MAIN-2015-18](http://blog.commoncrawl.org/2015/05/april-2015-crawl-archive-available/) | April 2015 | ~ 2.11 billion | 188
-| [CC-MAIN-2015-14](http://blog.commoncrawl.org/2015/05/march-2015-crawl-archive-available/) | March 2015 | ~ 1.64 billion | 100
-| [CC-MAIN-2015-11](http://blog.commoncrawl.org/2015/03/february-2015-crawl-archive-available/) | February 2015 | ~ 1.9 billion | 100
-| [CC-MAIN-2015-06](http://blog.commoncrawl.org/2015/03/january-2015-crawl-archive-available/) | January 2015 | ~ 1.82 billion | 98
-| [CC-MAIN-2014-52](http://blog.commoncrawl.org/2015/01/december-2014-crawl-archive-available/) | December 2014 | ~ 2.08 billion | 314
-| [CC-MAIN-2014-49](http://blog.commoncrawl.org/2014/12/november-2014-crawl-archive-available/) | November 2014 | ~ 1.95 billion | 136
-| [CC-MAIN-2014-35](http://blog.commoncrawl.org/2014/09/august-2014-crawl-data-available/) | August 2014 | ~ 2.8 billion | 111
-| [CC-MAIN-2014-23](http://blog.commoncrawl.org/2014/08/july-2014-crawl-data-available/) | July 2014 | ~ 3.6 billion | 253
-| [CC-MAIN-2014-15](http://blog.commoncrawl.org/2014/07/april-2014-crawl-data-available/) | April 2014 | ~ 2.3 billion | 70
-
-Common Crawl announce new crawls on their [blog](http://blog.commoncrawl.org/).
-
-Ships with a default configuration that launches the
+* Ships with a default configuration that launches the
 [elasticrawl-examples](https://github.com/rossf7/elasticrawl-examples) jobs.
 This is an implementation of the standard Hadoop Word Count example.
 
@@ -29,16 +16,25 @@ This [blog post](https://rossfairbanks.com/2015/01/03/parsing-common-crawl-using
 Deployment packages are available for Linux and OS X, unfortunately Windows isn't supported yet. Download the package, extract it and run the elasticrawl command from the package directory.
 
 ```bash
-# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-osx.tar.gz
-# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-linux-x86_64.tar.gz
-# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.3-linux-x86.tar.gz
+# OS X            https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-osx.tar.gz
+# Linux (64-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-linux-x86_64.tar.gz
+# Linux (32-bit)  https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-linux-x86.tar.gz
 
 # e.g.
 
-curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.4-osx.tar.gz
-tar -xzf elasticrawl-1.1.4-osx.tar.gz
-cd elasticrawl-1.1.4-osx/
+curl -O https://d2ujrnticqzebc.cloudfront.net/elasticrawl-1.1.5-osx.tar.gz
+tar -xzf elasticrawl-1.1.5-osx.tar.gz
+cd elasticrawl-1.1.5-osx/
 ./elasticrawl --help
+```
+
+### Troubleshooting
+
+If you get the error "EMR service role arn:aws:iam::156793023547:role/EMR_DefaultRole is invalid" when launching a cluster then you don't have the necessary IAM roles.
+To fix this install the [AWS CLI](https://aws.amazon.com/cli/) and run the command below.
+
+```
+aws emr create-default-roles 
 ```
 
 ## Commands
@@ -66,13 +62,13 @@ Config complete
 The parse command takes in the crawl name and an optional number of segments and files to parse.
 
 ```bash
-~$ ./elasticrawl parse CC-MAIN-2014-49 --max-segments 2 --max-files 3
+~$ ./elasticrawl parse CC-MAIN-2015-48 --max-segments 2 --max-files 3
 Segments
 Segment: 1416400372202.67 Files: 150
 Segment: 1416400372490.23 Files: 124
 
 Job configuration
-Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 3 files per segment
+Crawl: CC-MAIN-2015-48 Segments: 2 Parsing: 3 files per segment
 
 Cluster configuration
 Master: 1 m1.medium  (Spot: 0.12)
@@ -110,10 +106,10 @@ The status command shows crawls and your job history.
 ```bash
 ~$ ./elasticrawl status
 Crawl Status
-CC-MAIN-2014-49 Segments: to parse 134, parsed 2, total 136
+CC-MAIN-2015-48 Segments: to parse 98, parsed 2, total 100
 
 Job History (last 10)
-1420124830792 Launched: 2015-01-01 15:07:10 Crawl: CC-MAIN-2014-49 Segments: 2 Parsing: 3 files per segment
+1420124830792 Launched: 2015-01-01 15:07:10 Crawl: CC-MAIN-2015-48 Segments: 2 Parsing: 3 files per segment
 ```
 
 ### elasticrawl reset
@@ -121,10 +117,10 @@ Job History (last 10)
 The reset comment resets a crawl so it is parsed again.
 
 ```bash
-~$ ./elasticrawl reset CC-MAIN-2014-49
+~$ ./elasticrawl reset CC-MAIN-2015-48
 Reset crawl? (y/n)
 y
- CC-MAIN-2014-49 Segments: to parse 136, parsed 0, total 136
+ CC-MAIN-2015-48 Segments: to parse 100, parsed 0, total 100
 ```
 
 ### elasticrawl destroy
@@ -162,13 +158,13 @@ stores your S3 bucket name and the config for the parse and combine jobs
 
 ## Development
 
-Elasticrawl is developed in Ruby and requires Ruby 2.0.0 or later (Ruby 2.1 is recommended). The sqlite3 and nokogiri gems have C extensions which mean you may need to install development headers.
+Elasticrawl is developed in Ruby and requires Ruby 2.0.0 or later (Ruby 2.2 is recommended). The sqlite3 and nokogiri gems have C extensions which mean you may need to install development headers.
 
 [![Gem Version](https://badge.fury.io/rb/elasticrawl.png)](http://badge.fury.io/rb/elasticrawl)
 [![Code Climate](https://codeclimate.com/github/rossf7/elasticrawl.png)](https://codeclimate.com/github/rossf7/elasticrawl)
-[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 2.0.0, 2.1.5, 2.2.0
+[![Build Status](https://travis-ci.org/rossf7/elasticrawl.png?branch=master)](https://travis-ci.org/rossf7/elasticrawl) 2.0.0, 2.1.8, 2.2.4, 2.3.0
 
-The deployment packages are created using [Traveling Ruby](http://phusion.github.io/traveling-ruby/). The deploy packages contain a Ruby 2.1 interpreter, Gems and the compiled C extensions. The [traveling-elasticrawl](https://github.com/rossf7/traveling-elasticrawl) repository has a Rake task that automates building the deployment packages.
+The deployment packages are created using [Traveling Ruby](http://phusion.github.io/traveling-ruby/). The deploy packages contain a Ruby 2.2 interpreter, Gems and the compiled C extensions. The [traveling-elasticrawl](https://github.com/rossf7/traveling-elasticrawl) repository has a Rake task that automates building the deployment packages.
 
 ## TODO
 
