@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Elasticrawl::Job do
+describe Elasticrawl::Job, type: :model do
   it { should have_many(:job_steps) }
   it { should have_db_column(:type).of_type(:string) }
   it { should have_db_column(:job_name).of_type(:string) }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Elasticrawl::Crawl do
+describe Elasticrawl::Crawl, type: :model do
   it { should have_many(:crawl_segments) }
   it { should have_db_column(:crawl_name).of_type(:string) }
 
