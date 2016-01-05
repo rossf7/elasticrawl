@@ -7,6 +7,9 @@ RSpec.configure do |config|
   # Run each test in a transaction and rollback data on completion.
   DatabaseCleaner.strategy = :transaction
 
+  # Use Shoulda matchers for schema tests.
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+
   config.before(:each) do
     # Stub S3 call to get WARC file paths
     warc_paths = IO.read(File.join(File.dirname(__FILE__), 'fixtures', 'warc.paths'))

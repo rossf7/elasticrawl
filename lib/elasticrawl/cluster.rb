@@ -11,8 +11,13 @@ module Elasticrawl
     # Returns a configured job flow to the calling job.
     def create_job_flow(job, emr_config = nil)
       config = Config.new
-      job_flow = Elasticity::JobFlow.new(config.access_key_id,
-                                         config.secret_access_key)
+
+      Elasticity.configure do |c|
+        c.access_key = config.access_key_id
+        c.secret_key = config.secret_access_key
+      end
+
+      job_flow = Elasticity::JobFlow.new
       job_flow.name = "Job: #{job.job_name} #{job.job_desc}"
       job_flow.log_uri = job.log_uri
 

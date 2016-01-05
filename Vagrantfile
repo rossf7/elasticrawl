@@ -6,17 +6,17 @@ Vagrant.configure("2") do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
-  # Fix DNS issues with Ubuntu 12.04 by always using host's resolver
+  # Increase RAM to 1 GB
   config.vm.provider "virtualbox" do |vbox|
-    vbox.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vbox.customize ["modifyvm", :id, "--memory", 1024]
   end
 
   # Elasticrawl launches Hadoop jobs for the CommonCrawl dataset using the AWS EMR service.
   config.vm.define :elasticrawl do |elasticrawl|
     elasticrawl.vm.box = "elasticrawl"
 
-    # Ubuntu Server 12.04 LTS
-    elasticrawl.vm.box_url = "http://files.vagrantup.com/precise64.box"
+    # Ubuntu Server 14.04 LTS
+    elasticrawl.vm.box = "ubuntu/trusty64"
 
     # Network config
     elasticrawl.vm.network :public_network
@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
       chef.add_recipe "apt"
       chef.add_recipe "build-essential"
       chef.add_recipe "ruby_build"
-      chef.add_recipe "rbenv::user"
+      chef.add_recipe "ruby_rbenv::user"
       chef.add_recipe "git"
       chef.add_recipe "vim"
 
@@ -39,17 +39,24 @@ Vagrant.configure("2") do |config|
           "user_installs" => [
             {
               "user" => "vagrant",
-              "rubies" => ["2.0.0-p643", "2.1.5", "2.2.0"],
-              "global" => "2.1.5",
+              "rubies" => ["2.0.0-p648", "2.1.8", "2.2.4", "2.3.0"],
+              "global" => "2.2.4",
               "gems" => {
-                "2.0.0-p643" => [
-                  { "name" => "bundler" }
+                "2.0.0-p648" => [
+                  { "name" => "bundler",
+                    "version" => "1.11.2" }
                 ],
-                "2.1.5" => [
-                  { "name" => "bundler" }
+                "2.1.8" => [
+                  { "name" => "bundler",
+                    "version" => "1.11.2" }
                 ],
-                "2.2.0" => [
-                  { "name" => "bundler" }
+                "2.2.4" => [
+                  { "name" => "bundler",
+                    "version" => "1.11.2" }
+                ],
+                "2.3.0" => [
+                  { "name" => "bundler",
+                    "version" => "1.11.2" }
                 ]
               }
             }

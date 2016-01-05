@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Elasticrawl::CrawlSegment do
+describe Elasticrawl::CrawlSegment, type: :model do
   it { should belong_to(:crawl) }
   it { should have_many(:job_steps) }
   it { should have_db_column(:segment_name).of_type(:string) }

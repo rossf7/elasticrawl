@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Elasticrawl::JobStep do
+describe Elasticrawl::JobStep, type: :model do
   it { should belong_to(:job) }
   it { should belong_to(:crawl_segment) }
   it { should have_db_column(:input_paths).of_type(:text) }
