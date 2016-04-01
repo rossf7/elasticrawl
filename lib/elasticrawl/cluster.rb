@@ -47,12 +47,14 @@ HERE
         emr_ami_version = config_setting('emr_ami_version')
         job_flow_role = config_setting('job_flow_role')
         service_role = config_setting('service_role')
+        ec2_subnet_id = config_setting('ec2_subnet_id')
 
         job_flow.ec2_key_name = ec2_key_name if ec2_key_name.present?
         job_flow.placement = placement if placement.present?
         job_flow.ami_version = emr_ami_version if emr_ami_version.present?
         job_flow.job_flow_role = job_flow_role if job_flow_role.present?
         job_flow.service_role = service_role if service_role.present?
+        job_flow.ec2_subnet_id = ec2_subnet_id if ec2_subnet_id.present?
     end
 
     # Configures the instances that will be launched.  The master group has
