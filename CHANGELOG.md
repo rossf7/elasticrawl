@@ -1,3 +1,6 @@
+## v1.1.6 / 2016-06-26
+* Change CommonCrawl bucket to s3://commoncrawl
+
 ## v1.1.3 / 2015-02-04
 * Upgrade Traveling Ruby to 20150204-2.1.5
 

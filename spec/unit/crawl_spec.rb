@@ -35,7 +35,7 @@ describe Elasticrawl::Crawl, type: :model do
 
     it 'should create segment s3 uris' do
       expect(subject.crawl_segments[0].segment_s3_uri).to eq \
-        's3://aws-publicdatasets/common-crawl/crawl-data/CC-MAIN-2014-49/segments/1416400372202.67/'
+        's3://commoncrawl/crawl-data/CC-MAIN-2014-49/segments/1416400372202.67/'
     end
 
     it 'should set file counts' do
