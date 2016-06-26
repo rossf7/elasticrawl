@@ -22,7 +22,7 @@ describe Elasticrawl::CrawlSegment, type: :model do
 
     it 'should have an s3 uri' do
       expect(subject.segment_s3_uri).to eq \
-        "s3://aws-publicdatasets/common-crawl/crawl-data/#{crawl.crawl_name}/segments/#{segment_name}/"
+        "s3://commoncrawl/crawl-data/#{crawl.crawl_name}/segments/#{segment_name}/"
     end
 
     it 'should have a file count' do
