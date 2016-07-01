@@ -48,3 +48,13 @@ job_flow_role: 'EMR_EC2_DefaultRole'
 
 # Default service role
 service_role: 'EMR_DefaultRole'
+
+# VPC Subnet ID:
+#  1) Create a VPC using the VPC wizard:
+#   https://console.aws.amazon.com/vpc/home?region=us-east-1#vpcs:
+#  2) Visit the Subnets page:
+#   https://console.aws.amazon.com/vpc/home?region=us-east-1#subnets:
+#  3) Copy the 'Subnet ID' column value below.
+#
+#  ** Usage of newer M4 spot instances require a VPC.
+ec2_subnet_id: 'subnet-x7c2ppy9'
