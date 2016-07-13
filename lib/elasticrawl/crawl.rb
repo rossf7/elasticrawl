@@ -128,7 +128,7 @@ module Elasticrawl
       segments = Hash.new 0
 
       warc_paths.split.each do |warc_path|
-        segment_name = warc_path.split('/')[4]
+        segment_name = warc_path.split('/')[3]
         segments[segment_name] += 1 if segment_name.present?
       end
 
