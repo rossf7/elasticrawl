@@ -48,3 +48,6 @@ job_flow_role: 'EMR_EC2_DefaultRole'
 
 # Default service role
 service_role: 'EMR_DefaultRole'
+
+# Subnet ID. Required for new Amazon accounts launching more powerful instance types.
+ec2_subnet_id: 'subnet-name'
