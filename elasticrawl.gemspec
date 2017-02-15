@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thor', '~> 0.19.1'
 
   spec.add_development_dependency 'rake', '~> 10.4.2'
-  spec.add_development_dependency 'bundler', '~> 1.12.5'
+  spec.add_development_dependency 'bundler', '~> 1.13.6'
   spec.add_development_dependency 'rspec', '~> 3.4.0'
   spec.add_development_dependency 'database_cleaner', '~> 1.5.1'
   spec.add_development_dependency 'shoulda-matchers', '~> 3.0.1'
